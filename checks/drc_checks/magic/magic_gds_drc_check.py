@@ -75,6 +75,8 @@ def magic_gds_drc_check(gds_ut_path, design_name, pdk_path, output_directory):
     # TODO(ahmad.nofal@efabless.com): This should be a command line argument
     os.environ['MAGTYPE'] = 'mag'
     os.environ['PDK_ROOT'] = str(Path(pdk_path).parent)
+    logging.warning(f"sram_modules_in_gds: {sram_modules_in_gds}")
+    logging.warning(f"has_sram_as_str: {has_sram_as_str}")
     run_magic_drc_check_cmd = ['magic', '-noconsole', '-dnull', '-rcfile', magicrc_file_path, magic_drc_tcl_path, gds_ut_path,
                                design_name, pdk_path, design_magic_drc_file_path, design_magic_drc_mag_file_path,
                                ' '.join(sram_modules_in_gds), esd_fet, has_sram_as_str, has_esd_fet_as_str]
