@@ -58,12 +58,15 @@ def magic_gds_drc_check(gds_ut_path, design_name, pdk_path, output_directory):
 
     installed_sram_modules_names = []
     sram_maglef_files_generator = Path(pdk_path / 'libs.ref/sky130_sram_macros/maglef').glob('*.mag')
+    print(f"DEBUG: generator {sram_maglef_files_generator}")  # Line 1
     for installed_sram in sram_maglef_files_generator:
         installed_sram_modules_names.append(installed_sram.stem)
+    print(f"DEBUG: installed sram {installed_sram_modules_names}")  # Line 2
     sram_modules_in_gds = []
     for sram in installed_sram_modules_names:
         if check_if_binary_has(sram, gds_ut_path):
             sram_modules_in_gds.append(sram)  # only the name of the module
+    print(f"DEBUG: detected sram {sram_modules_in_gds}")  # Line 3
 
     magicrc_file_path = parent_directory.parent.parent / 'tech-files' / 'sky130A.magicrc'
     magic_drc_tcl_path = parent_directory / 'magic_drc_check.tcl'
